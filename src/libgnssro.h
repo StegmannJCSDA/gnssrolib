@@ -1,7 +1,7 @@
 #ifndef _LIBGNSSRO_H
 #define _LIBGNSSRO_H
 
-#include "media.h"
+#include "medium.h"
 
 class Planck
 {

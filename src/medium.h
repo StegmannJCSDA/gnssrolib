@@ -1,5 +1,5 @@
-#ifndef _MEDIA_H
-#define _MEDIA_H
+#ifndef _MEDIUM_H
+#define _MEDIUM_H
 
 #include<iostream>
 
@@ -13,4 +13,4 @@ namespace gnssro
 	}
 }
 
-#endif  // _MEDIA_H
+#endif  // _MEDIUM_H

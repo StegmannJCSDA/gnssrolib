@@ -1,5 +1,5 @@
 add_library(libgnssro STATIC
-	media.h
+	medium.h
 	libgnssro.cpp
     libgnssro.h
 )
