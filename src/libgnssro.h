@@ -1,6 +1,8 @@
 #ifndef _LIBGNSSRO_H
 #define _LIBGNSSRO_H
 
+#include "media.h"
+
 class Planck
 {
 	const float h;
