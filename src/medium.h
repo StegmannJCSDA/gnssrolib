@@ -5,12 +5,12 @@
 
 namespace gnssro
 {
-	class media
+	class medium
 	{
 		public:
 			std::string class_name;
-			virtual ~media() = 0;
-	}
+			virtual ~medium() = 0;
+	};
 }
 
 #endif  // _MEDIUM_H

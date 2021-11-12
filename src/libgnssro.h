@@ -2,6 +2,7 @@
 #define _LIBGNSSRO_H
 
 #include "medium.h"
+#include "GridDensityMedium.h"
 
 class Planck
 {
