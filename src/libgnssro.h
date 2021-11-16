@@ -1,6 +1,8 @@
 #ifndef _LIBGNSSRO_H
 #define _LIBGNSSRO_H
 
+#include "Point.hpp"
+
 class Planck
 {
 	const float h;
