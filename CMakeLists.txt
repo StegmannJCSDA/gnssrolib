@@ -4,7 +4,11 @@ project(mylib VERSION 1.0.1 DESCRIPTION "sandbox library")
 
 enable_testing()
 
-add_subdirectory( src )
+find_package(Boost 1.36.0)
+if(Boost_FOUND)
+  include_directories(${Boost_INCLUDE_DIRS})
+  add_subdirectory( src )
+endif()
 
 add_test(NAME MyTest COMMAND Test)
 
