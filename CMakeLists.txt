@@ -11,5 +11,6 @@ if(Boost_FOUND)
 endif()
 
 add_test(NAME MyTest COMMAND Test)
+add_test(NAME PointTest COMMAND Test_Point)
 
 add_subdirectory( test )

@@ -5,9 +5,10 @@
 #include <boost/operators.hpp>
 #include <ostream>
 
-
-template< class T , size_t Dim >
-class Point :
+namespace gnssro
+{
+  template< class T , size_t Dim >
+  class Point :
     boost::additive1< Point< T , Dim > ,
     boost::additive2< Point< T , Dim  > , T ,
     boost::multiplicative2< Point< T , Dim > , T> > >
@@ -175,6 +176,6 @@ class Point :
         return out;
     }
 
-
+}  //  end of namespace gnssro
 
 #endif  //  POINT_HPP_
