@@ -1,6 +1,9 @@
 add_library(libgnssro STATIC
+	medium.h
+	GridDensityMedium.h
+	GridDensityMedium.cpp
 	libgnssro.cpp
-    libgnssro.h
+  libgnssro.h
 	Point.hpp
 )
 

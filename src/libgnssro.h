@@ -1,6 +1,8 @@
 #ifndef _LIBGNSSRO_H
 #define _LIBGNSSRO_H
 
+#include "medium.h"
+#include "GridDensityMedium.h"
 #include "Point.hpp"
 
 class Planck
