@@ -3,6 +3,7 @@
 
 #include "medium.h"
 #include "GridDensityMedium.h"
+#include "Point.hpp"
 
 class Planck
 {
