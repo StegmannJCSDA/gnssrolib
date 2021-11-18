@@ -1,7 +1,7 @@
 add_library(libgnssro STATIC
 	libgnssro.cpp
     libgnssro.h
-	Point.hpp
+	point.hpp
 )
 
 set_target_properties(libgnssro PROPERTIES VERSION ${PROJECT_VERSION})
