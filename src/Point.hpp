@@ -1,5 +1,5 @@
-#ifndef POINT_HPP_
-#define POINT_HPP_
+#ifndef _POINT_HPP
+#define _POINT_HPP
 
 
 #include <boost/operators.hpp>
@@ -7,157 +7,154 @@
 
 namespace gnssro
 {
+  /// \brief Spatial Point Class
   template< class T , size_t Dim >
-  class Point :
-    boost::additive1< Point< T , Dim > ,
-    boost::additive2< Point< T , Dim  > , T ,
-    boost::multiplicative2< Point< T , Dim > , T> > >
+  class point : 
+    boost::ordered_ring_operators1<point<T,Dim>,
+    boost::ordered_ring_operators2<point<T,Dim>, T> >
     {
     public:
 
         const static size_t dim = Dim;
 
         // 
-        // Constructors
+        /// constructors
         //
-        Point( void )
+        point( void )
         {
             for( size_t i=0 ; i<dim ; ++i ) m_val[i] = 0.0;
         }
 
-        Point( T val )
+        point( T val )
         {
             for( size_t i=0 ; i<dim ; ++i ) m_val[i] = val;
         }
 
-        Point( T x , T y , T z = 0.0 )
+        point( T x , T y , T z = 0.0 )
         {
             if( dim > 0 ) m_val[0] = x;
             if( dim > 1 ) m_val[1] = y;
             if( dim > 2 ) m_val[2] = z;
         }
 
-        Point( Point< T , Dim >& p )
+        point( point< T , Dim >& p )
         {
             for( size_t ii=0; ii<dim; ++ii )
                 m_val[ii] = p[ii];
         }
 
-        //  End Constructors
+        point( const point< T , Dim >& p )
+        {
+            for( size_t ii=0; ii<dim; ++ii )
+                m_val[ii] = p[ii];
+        }
+        // End constructors
 
         //  Destructor
-        ~Point(){};
+        ~point(){};
         //  End Destructor
 
         // 
-        //  Operators
+        /// List of operators required by boost::operators
         //
         T operator[]( size_t i ) const { return m_val[i]; }
         T& operator[]( size_t i ) { return m_val[i]; }
 
-        Point<T,dim>& operator= ( const Point<T,dim>& p )
+        point<T,dim>& operator+=( const point<T,dim>& p )
         {
-            for( size_t ii=0; ii<dim; ++ii )
-                m_val[ii] = p[ii];
+            for( size_t i=0 ; i<dim ; ++i )
+                m_val[i] += p[i];
             return *this;
         }
 
-        Point<T,dim>& operator+=( const Point<T,dim>& p )
+        point<T,dim>& operator-=( const point<T,dim>& p )
         {
-            for( size_t ii=0 ; ii<dim ; ++ii )
-                m_val[ii] += p[ii];
+            for( size_t i=0 ; i<dim ; ++i )
+                m_val[i] -= p[i];
             return *this;
         }
 
-        Point<T,dim>& operator-=( const Point<T,dim>& p )
+        point<T,dim>& operator+=( const T& val )
         {
-            for( size_t ii=0; ii<dim; ++ii )
-                m_val[ii] -= p[ii];
+            for( size_t i=0 ; i<dim ; ++i )
+                m_val[i] += val;
             return *this;
         }
 
-        Point<T,dim>& operator+=( const T& val )
+        point<T,dim>& operator-=( const T& val )
         {
-            for( size_t ii=0; ii<dim; ++ii )
-                m_val[ii] += val;
+            for( size_t i=0 ; i<dim ; ++i )
+                m_val[i] -= val;
             return *this;
         }
 
-        Point<T,dim>& operator-=( const T& val )
+        point<T,dim>& operator*=( const T &val )
         {
-            for( size_t ii=0; ii<dim; ++ii )
-                m_val[ii] -= val;
+            for( size_t i=0 ; i<dim ; ++i )
+                m_val[i] *= val;
             return *this;
         }
 
-        Point<T,dim>& operator*=( const T &val )
-        {
-            for( size_t ii=0; ii<dim; ++ii )
-                m_val[ii] *= val;
-            return *this;
-        }
-
-        Point<T,dim>& operator/=( const T &val )
+        point<T,dim>& operator/=( const T &val )
         {
             for( size_t i=0 ; i<dim ; ++i )
                 m_val[i] /= val;
             return *this;
         }
 
-        //  End Operators
+        //
 
     private:
 
-        // Actual Point coordinates are private (access via [] operator):
         T m_val[dim];
-
     };
 
     //
-    //  Additional vector operators
+    ///  List of additional operators
     //
 
     //
-    //  the - operator
+    ///  the - operator
     //
     template< class T , size_t Dim >
-    Point< T , Dim > operator-( const Point< T , Dim > &p )
+    point< T , Dim > operator-( const point< T , Dim > &p )
     {
-        Point< T , Dim > tmp;
-        for( size_t i=0 ; i<Dim ; ++i ) tmp[i] = -p[i];
+        point< T , Dim > tmp;
+        for( size_t i=0 ; i<Dim ; ++i ) 
+            tmp[i] = -p[i];
         return tmp;
     }
 
     //
-    //  Inner product
+    ///  scalar product
     //
     template< class T , size_t Dim >
-    T scalar_prod( const Point< T , Dim > &p1 , const Point< T , Dim > &p2 )
+    T scalar_prod( const point< T , Dim > &p1 , const point< T , Dim > &p2 )
     {
         T tmp = 0.0;
-        for( size_t i=0 ; i<Dim ; ++i ) tmp += p1[i] * p2[i];
+        for( size_t i=0 ; i<Dim ; ++i ) 
+            tmp += p1[i] * p2[i];
         return tmp;
     }
 
 
 
     //
-    //  L^1 norm
+    /// L^1 norm
     //
     template< class T , size_t Dim >
-    T norm( const Point< T , Dim > &p1 )
+    T norm( const point< T , Dim > &p1 )
     {
         return scalar_prod( p1 , p1 );
     }
 
 
 
-
     //
-    //  L^2 norm
+    ///  L^2 norm 
     //
     template< class T , size_t Dim >
-    T abs( const Point< T , Dim > &p1 )
+    T abs( const point< T , Dim > &p1 )
     {
         return sqrt( norm( p1 ) );
     }
@@ -166,16 +163,18 @@ namespace gnssro
 
 
     //
-    //  output stream operator
+    ///  output operator
     //
     template< class T , size_t Dim >
-    std::ostream& operator<<( std::ostream &out , const Point< T , Dim > &p )
+    std::ostream& operator<<( std::ostream &out , const point< T , Dim > &p )
     {
-        if( Dim > 0 ) out << p[0];
-        for( size_t i=1 ; i<Dim ; ++i ) out << " " << p[i];
+        if( Dim > 0 ) 
+            out << p[0];
+        for( size_t i=1 ; i<Dim ; ++i ) 
+            out << " " << p[i];
         return out;
     }
 
-}  //  end of namespace gnssro
+} //  End namespace gnssro
 
-#endif  //  POINT_HPP_
+#endif //_POINT_HPP
