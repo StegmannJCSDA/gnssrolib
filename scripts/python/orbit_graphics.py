@@ -77,8 +77,6 @@ def plotOrbit(semi_major_axis, eccentricity=0, inclination=0,
     zr = 0 * theta
 
     pts = np.transpose(np.matrix([xr,yr,zr]))
-    #pts = np.matrix(zip(xr,yr,zr))
-    print(pts.shape,R.shape,R2.shape)
     # Rotate by inclination
     # Rotate by ascension + perigee
     pts =  (R * R2 * pts.T).T
@@ -131,4 +129,5 @@ def doDraw():
         getattr(ax, 'set_{}lim'.format(axis))((-max_radius, max_radius))
     
     # Draw figure
+    plt.savefig('orbit_plot.png')
     plt.show()

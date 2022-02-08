@@ -53,13 +53,12 @@ if __name__ == "__main__":
         elem = ""
         for line in f:
             line = str(line.decode('UTF-8'))
-            print(line)
             elem += line
             if (line[0] == '2'):
                 elem = elem.strip()
-                print(elem)
                 if elem.startswith("GPS BIIR-2"):
                     gps_orbit.inspect(elem, printInfo=True, labels=True)
+                    print(elem)
                 elem = ""
 
     # gps_orbit.inspect(elem1)
